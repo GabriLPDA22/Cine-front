@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elixium - Login</title>
+    <link rel="icon" href="/cine_web_app/front-end/images/Logoweb.png"type="image/x-icon" />
+    <link rel="stylesheet" href="/cine_web_app/front-end/css/login.css">
+    <link rel="stylesheet" href="/cine_web_app/front-end/css/Scrollbar.css">
+    <!-- Incluye SweetAlert para los mensajes de éxito o error -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+
+<body class="login-page">
+    <!-- Header -->
+    <header class="header">
+        <a href="../Casa.html" class="header__logo">Elixium</a>
+        <div class="header__language">
+            <button class="header__language-btn" id="language-toggle">
+                <span id="current-language">Español</span>
+                <img src="/cine_web_app/front-end/images/globo.png" alt="Language Icon" class="header__language-icon">
+            </button>
+            <div class="header__language-dropdown">
+                <div class="header__language-option" data-en="English" data-es="English">English</div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Background Grid with Posters -->
+    <div class="background-grid">
+        <div class="poster poster--1 poster--small" style="background-image: url('/cine_web_app/front-end/images/dune_parte_dos.jpg');"></div>
+        <div class="poster poster--2 poster--large" style="background-image: url('/cine_web_app/front-end/images/Vengadores_Infinity_War.jpg');"></div>
+        <div class="poster poster--3 poster--small" style="background-image: url('/cine_web_app/front-end/images/escuadron_suicida-cartel.jpg');"></div>
+        <div class="poster poster--4 poster--large" style="background-image: url('/cine_web_app/front-end/images/doctor-strange.jpg');"></div>
+        <div class="poster poster--5 poster--large" style="background-image: url('/cine_web_app/front-end/images/Venom_Habraa_matanza.jpg');"></div>
+        <div class="poster poster--6 poster--small" style="background-image: url('/cine_web_app/front-end/images/transformer-5.jpeg');"></div>
+        <div class="poster poster--7 poster--large" style="background-image: url('/cine_web_app/front-end/images/harry-potter.jpeg');"></div>
+        <div class="poster poster--8 poster--small" style="background-image: url('/cine_web_app/front-end/images/up.jpg');"></div>
+    </div>
+
+    <!-- Overlay -->
+    <div class="overlay"></div>
+
+    <!-- Main Login Form -->
+    <main class="auth">
+        <div class="auth__form-container">
+            <h2 class="auth__title" data-en="Log in" data-es="Iniciar sesión">Login</h2>
+            <form id="login-form" class="auth__form">
+                <div class="auth__field">
+                    <label for="login-email" class="auth__label" data-en="Email" data-es="Correo">Correo</label>
+                    <input type="email" id="login-email" class="auth__input"  data-en="Your email" data-es="Tu correo">
+                </div>
+                <div class="auth__field">
+                    <label for="login-password" class="auth__label" data-en="Password" data-es="Contraseña">Contraseña</label>
+                    <input type="password" id="login-password" class="auth__input" data-en="Your password" data-es="Tu contraseña">
+                </div>
+                <button type="submit" class="auth__button" data-en="Log in" data-es="Iniciar sesión">Iniciar sesión</button>
+                <div class="auth__options">
+                    <label class="auth__checkbox-label" data-en="Remember me" data-es="Recuérdame">
+                        <input type="checkbox" class="auth__checkbox"> Recuérdame
+                    </label>
+                    <a href="/cine_web_app/front-end/views/security/Registrar.html" class="auth__link" data-en="Don't have an account? Sign up" data-es="¿No tienes una cuenta? Regístrate">¿No tienes una cuenta? Regístrate</a>
+                </div>
+            </form>
+        </div>
+    </main>
+    
+
+    <!-- JavaScript for Login -->
+    <script src="/cine_web_app/front-end/js/security/Acceso.js"></script>
+    <script src="/cine_web_app/front-end/js/security/SelectorDeLenguajes.js"></script>
+    
+</body>
+</html>
