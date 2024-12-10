@@ -227,4 +227,21 @@ main.guest-purchase .total-summary .continue-btn:hover {
   margin-top: 1.5rem;
 }
 
+.delete-product {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #ff2c78;
+  padding: 0;
+  margin-left: 10px;
+  transition: transform 0.2s ease;
+}
+.delete-product:hover {
+  transform: scale(1.1);
+}
+.delete-product .icon-trash {
+  width: 20px;
+  height: 20px;
+}
+
 /*# sourceMappingURL=guest-purchase.css.map */

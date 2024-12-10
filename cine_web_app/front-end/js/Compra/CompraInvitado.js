@@ -74,21 +74,53 @@ document.addEventListener('DOMContentLoaded', async function () {
         });
     }
 
-    // Renderizar productos
+    // Renderizar productos con un botón para eliminar
     function renderProducts(products) {
         products.forEach(product => {
             const productRow = document.createElement('div');
             productRow.classList.add('table-row');
+            productRow.setAttribute('data-product-id', product.id); // Atributo para identificar el producto
+
             productRow.innerHTML = `
-                <span>
-                    <img src="${product.imagenUrl}" class="product-image">
-                    <div class="test">${product.quantity}x ${product.nombre}</div>
-                </span>
-                <span>${(product.precio * product.quantity).toFixed(2)} €</span>
-            `;
+            <span>
+                <img src="${product.imagenUrl}" class="product-image">
+                <div class="test">${product.quantity}x ${product.nombre}</div>
+            </span>
+            <span>${(product.precio * product.quantity).toFixed(2)} €</span>
+            <button class="delete-product" aria-label="Eliminar producto">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-trash">
+                    <polyline points="3 6 5 6 21 6"></polyline>
+                    <path d="M19 6l-2 14H7L5 6"></path>
+                    <path d="M10 11v6"></path>
+                    <path d="M14 11v6"></path>
+                </svg>
+            </button>
+        `;
+
             ticketTable.appendChild(productRow);
+
+            // Añadir funcionalidad para eliminar productos
+            productRow.querySelector('.delete-product').addEventListener('click', function () {
+                removeProduct(product.id);
+            });
         });
     }
+
+    // Función para eliminar productos
+    function removeProduct(productId) {
+        // Filtrar el producto eliminado del array `parsedProducts`
+        const updatedProducts = parsedProducts.filter(product => product.id !== productId);
+
+        // Actualizar la lista de productos en la URL
+        const updatedProductParam = updatedProducts.map(p => `id=${p.id}&quantity=${p.quantity}`).join('&');
+        const currentParams = new URLSearchParams(window.location.search);
+        currentParams.set('products', updatedProductParam);
+
+        // Actualizar la página para reflejar los cambios
+        const newQueryString = currentParams.toString();
+        window.location.href = `?${newQueryString}`;
+    }
+
 
     // Renderizar entradas normales
     function renderNormalTickets() {
@@ -107,7 +139,7 @@ document.addEventListener('DOMContentLoaded', async function () {
             ticketTable.appendChild(normalRow);
         }
     }
-    
+
 
     // Renderizar entradas VIP
     function renderVipTickets() {
@@ -185,4 +217,4 @@ document.getElementById('finalize-purchase').addEventListener('click', function 
 
 
 
-  
+

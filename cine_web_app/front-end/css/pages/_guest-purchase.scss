@@ -267,3 +267,22 @@ main.guest-purchase {
   }
 }
 
+.delete-product {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #ff2c78;
+  padding: 0;
+  margin-left: 10px;
+  transition: transform 0.2s ease;
+
+  &:hover {
+      transform: scale(1.1);
+  }
+
+  .icon-trash {
+      width: 20px;
+      height: 20px;
+  }
+}
+

@@ -1,3 +1,10 @@
+// Función para formatear fechas al estilo dd/MM/yyyy
+function formatDate(dateString) {
+    const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
+    const date = new Date(dateString);
+    return date.toLocaleDateString('es-ES', options);
+}
+
 // Función para rellenar los datos en el HTML
 function populateSummary() {
     const params = getQueryParams();
@@ -17,7 +24,10 @@ function populateSummary() {
     const totalElement = document.querySelector('.purchase-summary__info-item:nth-child(6)');
 
     if (cineElement) cineElement.innerHTML = `<strong>Cine:</strong> ${params.cineName || 'No disponible'}`;
-    if (dateElement) dateElement.innerHTML = `<strong>Fecha:</strong> ${params.date || 'No disponible'}`;
+    if (dateElement) {
+        const formattedDate = params.date ? formatDate(params.date) : 'No disponible';
+        dateElement.innerHTML = `<strong>Fecha:</strong> ${formattedDate}`;
+    }
     if (timeElement) timeElement.innerHTML = `<strong>Hora:</strong> ${params.time || 'No disponible'}`;
     if (roomElement) roomElement.innerHTML = `<strong>Sala:</strong> ${params.room || 'No disponible'}`;
     if (seatsElement) seatsElement.innerHTML = `<strong>Entradas:</strong> ${params.seats || 'No disponible'}`;

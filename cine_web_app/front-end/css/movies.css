@@ -193,7 +193,7 @@ body {
   border-bottom-right-radius: 6px;
   writing-mode: vertical-rl;
   text-orientation: mixed;
-  height: 71px;
+  height: 92px;
 }
 .movie .cine-detail__info-showtimes .session__vose {
   background-color: #ff2c78;
@@ -370,6 +370,35 @@ body {
     margin-top: 1rem;
     padding-bottom: 1rem;
   }
+}
+.day-button {
+  padding: 10px 15px;
+  margin: 5px;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease, opacity 0.3s ease;
+}
+.day-button:hover:not(.day-button--disabled) {
+  color: #fff;
+}
+.day-button--disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background-color: #333;
+  color: #999;
+}
+.day-button--disabled:hover {
+  background-color: #333;
+  color: #999;
+}
+.day-button.active {
+  background-color: #ff0055;
+  color: #fff;
+  font-weight: bold;
+  border-bottom: 2px solid #ff2266;
 }
 
 /*# sourceMappingURL=movies.css.map */

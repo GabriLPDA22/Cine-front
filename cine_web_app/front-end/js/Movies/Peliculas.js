@@ -1,4 +1,4 @@
-// Obtén el ID de la película y el cine desde la URL
+// Obtener el ID de la película y el cine desde la URL
 const urlParams = new URLSearchParams(window.location.search);
 const movieId = urlParams.get('id'); // ID de la película
 const cineId = urlParams.get('cineId'); // ID del cine
@@ -12,6 +12,18 @@ const showtimesContainer = document.getElementById("showtimes-container");
 // Oculta los elementos relacionados con sesiones y días al cargar la página
 if (daySelector) daySelector.style.display = "none";
 if (showtimesContainer) showtimesContainer.style.display = "none";
+
+// Función para formatear fechas en formato dd/mm/yyyy
+function formatDate(dateString) {
+    const date = new Date(dateString);
+    // Manejar fechas inválidas
+    if (isNaN(date)) return dateString;
+
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // Los meses comienzan en 0
+    const year = date.getFullYear();
+    return `${day}/${month}/${year}`;
+}
 
 // Función para cargar los detalles de la película
 async function loadMovieDetails(id) {
@@ -30,7 +42,10 @@ async function loadMovieDetails(id) {
         document.getElementById('movie-actors').textContent = movie.actores;
         document.getElementById('movie-description').textContent = movie.descripcion;
         document.getElementById('movie-duration').textContent = movie.duracion;
-        document.getElementById('movie-release-date').textContent = movie.fechaEstreno;
+
+        // Formatear la fecha de estreno a dd/mm/yyyy
+        document.getElementById('movie-release-date').textContent = formatDate(movie.fechaEstreno);
+
         document.getElementById('movie-genre').textContent = movie.genero;
         document.getElementById('movie-rating').textContent = movie.calificacion;
 
@@ -42,7 +57,6 @@ async function loadMovieDetails(id) {
     }
 }
 
-// Función para cargar el nombre del cine y actualizar la UI
 // Función para cargar el nombre del cine y actualizar la UI
 async function fetchCinemaName(cineId) {
     try {
@@ -93,12 +107,11 @@ async function fetchCinemaName(cineId) {
         }
 
         // Cargar los días y las sesiones del cine seleccionado
-        loadDaysAndSessions(cine.id);
+        await loadDaysAndSessions(cine.id);
     } catch (error) {
         console.error("Error al obtener el cine:", error);
     }
 }
-
 
 // Abre el modal para selección de cine
 function openCinemaModal() {
@@ -180,7 +193,6 @@ async function selectCinema(cinemaName, cinemaId) {
     }
 }
 
-
 // Abre el modal de filtro
 function openFilterModal() {
     document.getElementById("filter-modal").classList.remove("hidden");
@@ -211,7 +223,6 @@ function updateFilterText() {
 
     document.querySelector(".filter span").textContent = filterText.trim();
 }
-
 
 // Aplica los filtros seleccionados
 function applyFilters() {
@@ -244,8 +255,6 @@ function applyFilters() {
     updateFilterText();
 }
 
-
-// Cargar los días y las sesiones
 async function loadDaysAndSessions(cineId) {
     try {
         if (!cineId) {
@@ -263,37 +272,96 @@ async function loadDaysAndSessions(cineId) {
 
         const fechasUnicas = new Set();
 
+        // Recolectar fechas únicas de las sesiones
         cine.peliculas.forEach(pelicula => {
             const sesionesPorCine = pelicula.sesiones[cineSeleccionado];
             if (!sesionesPorCine) return;
 
             Object.keys(sesionesPorCine).forEach(day => {
-                fechasUnicas.add(day);
+                fechasUnicas.add(day); // Agregar la fecha
             });
         });
 
-        [...fechasUnicas].sort().forEach((day, index) => {
+        // Convertir a un array y ordenar cronológicamente
+        const fechasArray = Array.from(fechasUnicas)
+            .map(day => new Date(day)) // Convertir a objetos Date
+            .sort((a, b) => a - b); // Ordenar fechas cronológicamente
+
+        if (fechasArray.length === 0) {
+            console.warn("No hay sesiones disponibles.");
+            showtimesContainer.innerHTML = "<p>No hay sesiones disponibles para este cine.</p>";
+            return;
+        }
+
+        // Fecha mínima del rango de sesiones
+        const firstSessionDate = fechasArray[0]; // Fecha de la primera sesión disponible
+        const today = new Date();
+        today.setHours(0, 0, 0, 0); // Limpiar la hora para comparaciones
+
+        const MAX_DIAS_PASADOS = 2; // Máximo de días pasados permitidos
+        const diasAMostrar = []; // Array para los días que se mostrarán
+
+        // Agregar hasta 2 días pasados antes de la primera sesión,
+        // siempre que estén dentro del mismo mes y año
+        for (let i = 1; i <= MAX_DIAS_PASADOS; i++) {
+            const diaPasado = new Date(firstSessionDate);
+            diaPasado.setDate(diaPasado.getDate() - i); // Restar días
+            if (
+                diaPasado.getMonth() !== firstSessionDate.getMonth() || // Mismo mes
+                diaPasado.getFullYear() !== firstSessionDate.getFullYear() // Mismo año
+            ) {
+                break; // No agregar días fuera del mismo mes y año
+            }
+            diasAMostrar.push(diaPasado);
+        }
+
+        // Agregar las fechas de las sesiones futuras (incluyendo hoy)
+        fechasArray.forEach(fecha => {
+            if (fecha >= today) {
+                diasAMostrar.push(fecha);
+            }
+        });
+
+        // Renderizar los botones de días en el selector
+        diasAMostrar.sort((a, b) => a - b).forEach((date, index) => {
             const dayButton = document.createElement("button");
             dayButton.classList.add("day-button");
-            if (index === 0) {
-                dayButton.classList.add("active");
-                diaSeleccionado = day; // Seleccionar automáticamente el primer día
+            dayButton.textContent = formatDate(date); // Formatear fecha para el botón
+            dayButton.dataset.date = date.toISOString().split('T')[0]; // yyyy-mm-dd
+
+            // Estilizar días pasados como deshabilitados
+            if (date < today) {
+                dayButton.disabled = true;
+                dayButton.classList.add("day-button--disabled");
+                dayButton.setAttribute("aria-disabled", "true");
+            } else {
+                // Añadir funcionalidad para días habilitados
+                dayButton.addEventListener("click", () => {
+                    document.querySelectorAll(".day-button").forEach(btn => btn.classList.remove("active"));
+                    dayButton.classList.add("active");
+                    diaSeleccionado = dayButton.dataset.date; // Actualizar día seleccionado
+
+                    renderShowtimesByDate(dayButton.dataset.date, cineId);
+                });
+
+                // Seleccionar automáticamente el primer día habilitado
+                if (index === 0 && date >= today) {
+                    dayButton.classList.add("active");
+                    diaSeleccionado = dayButton.dataset.date;
+                    renderShowtimesByDate(dayButton.dataset.date, cineId);
+                }
             }
-            dayButton.textContent = formatDate(day);
-            dayButton.dataset.date = day;
-
-            dayButton.addEventListener("click", () => {
-                document.querySelectorAll(".day-button").forEach(btn => btn.classList.remove("active"));
-                dayButton.classList.add("active");
-
-                renderShowtimesByDate(day, cineId); // Renderizar las sesiones del día seleccionado
-            });
 
             daySelector.appendChild(dayButton);
         });
 
-        // Renderizar las sesiones del primer día por defecto
-        if (fechasUnicas.size > 0) renderShowtimesByDate([...fechasUnicas][0], cineId);
+        // Mostrar el selector de días solo si hay días disponibles
+        if (diasAMostrar.length > 0) {
+            daySelector.style.display = "flex";
+        } else {
+            daySelector.style.display = "none";
+            showtimesContainer.innerHTML = "<p>No hay sesiones disponibles para este cine.</p>";
+        }
     } catch (error) {
         console.error("Error al cargar días y sesiones:", error);
     }
@@ -327,18 +395,31 @@ async function renderShowtimesByDate(day, cineId) {
             return;
         }
 
+        // Filtrar sesiones que ya han pasado si el día es hoy
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+
+        const isToday = new Date(day).toDateString() === today.toDateString();
+        const now = new Date();
+
         sesiones.forEach(sesion => {
+            // Crear contenedor de sesión
             const sessionDiv = document.createElement("div");
             sessionDiv.classList.add("session");
 
+            // Mostrar hora
             const timeDiv = document.createElement("div");
             timeDiv.classList.add("session__time");
             timeDiv.textContent = sesion.hora;
+            sessionDiv.appendChild(timeDiv);
 
+            // Mostrar sala
             const roomDiv = document.createElement("div");
             roomDiv.classList.add("session__room");
             roomDiv.textContent = `Sala ${sesion.sala}`;
+            sessionDiv.appendChild(roomDiv);
 
+            // Mostrar tags
             const tagsDiv = document.createElement("div");
             tagsDiv.classList.add("session__tags");
 
@@ -348,29 +429,44 @@ async function renderShowtimesByDate(day, cineId) {
                 voseTag.textContent = "VOSE";
                 tagsDiv.appendChild(voseTag);
             }
-            
+
             if (sesion.esISense) {
                 const isenseTag = document.createElement("div");
                 isenseTag.classList.add("session__tag", "session__tag--isense");
                 isenseTag.textContent = "iSense";
                 tagsDiv.appendChild(isenseTag);
             }
-            
 
-            sessionDiv.appendChild(timeDiv);
-            sessionDiv.appendChild(roomDiv);
             sessionDiv.appendChild(tagsDiv);
 
-            sessionDiv.addEventListener("click", () => {
-                redirectToSeatSelection(
-                    peliculaSeleccionada.titulo,
-                    cineSeleccionado,
-                    day,
-                    sesion.hora,
-                    sesion.sala,
-                    sesion.id // Pasar el ID de la sesión
-                );
-            });
+            // Determinar si la sesión está en el pasado
+            let sessionInPast = false;
+            if (isToday) {
+                const sessionDateTime = new Date(`${day}T${sesion.hora}`);
+                if (sessionDateTime < now) {
+                    sessionInPast = true;
+                }
+            } else if (new Date(day) < today) {
+                sessionInPast = true;
+            }
+
+            // Aplicar estilos y comportamiento si la sesión está en el pasado
+            if (sessionInPast) {
+                sessionDiv.classList.add("session--past");
+                sessionDiv.style.opacity = "0.5";
+                sessionDiv.style.cursor = "not-allowed";
+            } else {
+                sessionDiv.addEventListener("click", () => {
+                    redirectToSeatSelection(
+                        peliculaSeleccionada.titulo,
+                        cineSeleccionado,
+                        day,
+                        sesion.hora,
+                        sesion.sala,
+                        sesion.id // Pasar el ID de la sesión
+                    );
+                });
+            }
 
             showtimesContainer.appendChild(sessionDiv);
         });
@@ -378,12 +474,6 @@ async function renderShowtimesByDate(day, cineId) {
         console.error("Error al renderizar sesiones:", error);
         showtimesContainer.innerHTML = "<p>Error al cargar las sesiones. Intenta de nuevo más tarde.</p>";
     }
-}
-
-// Formatear fecha
-function formatDate(dateString) {
-    const date = new Date(dateString);
-    return date.toLocaleDateString("es-ES", { weekday: 'short', day: 'numeric', month: 'short' });
 }
 
 // Redirigir a la selección de asientos
@@ -398,6 +488,11 @@ function redirectToSeatSelection(movieTitle, cineName, date, time, room, sesionI
     });
     window.location.href = `/cine_web_app/front-end/views/Butacas.html?${queryParams.toString()}`;
 }
+
+// Función de redirección de ejemplo
+// function redirectToSeatSelection(titulo, cine, dia, hora, sala, sesionId) {
+//     window.location.href = `/seleccionar-asientos?titulo=${encodeURIComponent(titulo)}&cine=${encodeURIComponent(cine)}&dia=${dia}&hora=${hora}&sala=${sala}&sesionId=${sesionId}`;
+// }
 
 // Cargar detalles de la película si hay un `movieId`
 if (movieId) loadMovieDetails(movieId);

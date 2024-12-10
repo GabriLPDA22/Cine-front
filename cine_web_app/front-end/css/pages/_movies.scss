@@ -456,3 +456,37 @@ body {
   }
 
 }
+
+.day-button {
+  padding: 10px 15px;
+  margin: 5px;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease, opacity 0.3s ease;
+
+  &:hover:not(.day-button--disabled) {
+      color: #fff;
+  }
+
+  &--disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      background-color: #333;
+      color: #999;
+
+      &:hover {
+          background-color: #333; // Sin cambios al pasar el mouse
+          color: #999;
+      }
+  }
+
+  &.active {
+      background-color: #ff0055;
+      color: #fff;
+      font-weight: bold;
+      border-bottom: 2px solid #ff2266;
+  }
+}

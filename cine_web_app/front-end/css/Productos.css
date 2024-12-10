@@ -39,7 +39,7 @@ body {
 .movie-details__content-wrapper .movie-details__info-wrapper--poster .movie-title h2 {
   font-size: 2.5rem;
   font-weight: bold;
-  margin: 0;
+  margin-top: 5%;
 }
 .movie-details__content-wrapper .movie-details__session-info {
   flex: 1;
@@ -328,4 +328,4 @@ body {
   color: #df3f79;
 }
 
-/*# sourceMappingURL=productos.css.map */
+/*# sourceMappingURL=Productos.css.map */
