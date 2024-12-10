@@ -4,25 +4,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Elixium - Home</title>
+    <title>Elixium - Cinemas</title>
     <link rel="icon" href="/cine_web_app/front-end/images/Logoweb.png"type="image/x-icon" />
-    <link rel="stylesheet" href="../css/home.css">
+    <link rel="stylesheet" href="../css/nuestros-cines.css">
     <link rel="stylesheet" href="../css/footer.css">
     <link rel="stylesheet" href="../css/header.css">
-    <link rel="stylesheet" href="../css/carrousel-top-movies.css">
     <link rel="stylesheet" href="../css/Scrollbar.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
-
 </head>
 
-<body>
-
+<body class="cines-page">
     <!-- Navbar para pantallas grandes -->
     <header class="header header--desktop">
-        <a href="/cine_web_app/front-end/views/Home.html" class="header__logo">Elixium</a>
+        <a href="/cine_web_app/front-end/views/Casa.html" class="header__logo">Elixium</a>
         <nav class="header__nav">
             <ul class="header__menu">
                 <li class="header__menu-item"><a href="/cine_web_app/front-end/views/Cines.html">Cines</a></li>
@@ -31,136 +24,83 @@
             </ul>
         </nav>
         <div class="header__actions">
-            <a href="/cine_web_app/front-end/views/security/register.html"
+            <a href="/cine_web_app/front-end/views/security/Registrar.html"
                 class="header__link header__register">Registrarse</a>
-            <a href="/cine_web_app/front-end/views/security/login.html" class="header__link header__login">Iniciar
+            <a href="/cine_web_app/front-end/views/security/Acceso.html" class="header__link header__login">Iniciar
                 sesión</a>
         </div>
     </header>
 
     <!-- Navbar responsive para móviles -->
     <header class="header header--responsive">
-        <a href="/cine_web_app/front-end/views/Home.html" class="header__logo">Elixium</a>
+        <a href="/cine_web_app/front-end/views/Casa.html" class="header__logo">Elixium</a>
         <div class="header__hamburger">&#9776;</div>
         <nav class="header__nav overlay">
             <ul class="header__menu">
                 <li class="header__menu-item"><a href="/cine_web_app/front-end/views/Cines.html">Cines</a></li>
                 <li class="header__menu-item"><a href="/cine_web_app/front-end/views/TodasLasPeliculas.html">Películas</a></li>
                 <li class="header__menu-item"><a href="/cine_web_app/front-end/views/Promociones.html">Promociones</a></li>
-                <li class="header__menu-item"><a href="/cine_web_app/front-end/views/security/register.html"
+                <li class="header__menu-item"><a href="/cine_web_app/front-end/views/security/Registrar.html"
                         class="header__link header__register">Registrarse</a></li>
-                <li class="header__menu-item"><a href="/cine_web_app/front-end/views/security/login.html"
+                <li class="header__menu-item"><a href="/cine_web_app/front-end/views/security/Acceso.html"
                         class="header__link header__login">Iniciar sesión</a></li>
             </ul>
         </nav>
     </header>
 
+    <!-- Banner -->
+    <section class="banner">
+        <img src="../images/banner-cines.jpg" alt="Sala de cine" class="banner__image">
+    </section>
+
     <!-- Main Content -->
-    <main class="main">
-        <!-- Sección de Top Películas -->
-        <section class="main__top-movies">
-            <h2 class="main__title">Top Películas</h2>
-            <div class="carousel">
-                <!-- Botón izquierdo -->
-                <button class="carousel__button carousel__button--left">
-                    <span class="carousel__button-content">
-                        <img src="/cine_web_app/front-end/images/left-arrow.png" alt="Left Arrow">
-                    </span>
-                </button>
+    <main class="cines">
+        <h1 class="cines__title">NUESTROS CINES</h1>
+        <div class="cines__grid">
 
-                <!-- Carrusel de películas -->
-                <div class="carousel__track-container">
-                    <ul class="carousel__track" id="carousel-track">
-                        <!-- Las películas se cargarán dinámicamente aquí -->
-                    </ul>
-                </div>
-
-                <!-- Botón derecho -->
-                <button class="carousel__button carousel__button--right">
-                    <span class="carousel__button-content">
-                        <img src="/cine_web_app/front-end/images/right-arrow.png" alt="Right Arrow">
-                    </span>
-                </button>
-            </div>
-        </section>
-
-        <!-- Sección de ¿Quiénes somos? -->
-        <section class="about-section">
-            <div class="about-section__background">
-                <div class="about-section__content">
-                    <h2 class="about-section__title">¿Quiénes somos?</h2>
-                    <p class="about-section__description">
-                        Nos dedicamos a ofrecerte lo mejor del cine, acercándote a las últimas
-                        estrenos, críticas, y todo lo que necesitas saber sobre el séptimo arte.
-                        Brindamos una experiencia única y completa, para que cada visita sea
-                        una nueva oportunidad de disfrutar y descubrir lo que más te apasiona
-                        en la pantalla grande.
+            <a id="linkGranCasa" href="../views/Cines-Carteleras/Gran-Casa.html?cine=Gran Casa" class="cines__link">
+                <div class="cines__card" style="background-image: url('../images/gran-casa.jpg');">
+                    <div class="cines__card-title">GRAN CASA</div>
+                    <p class="cines__card-description">
+                        <strong>Butacas estándar y premium:</strong> Comodidad asegurada para todos los gustos. <br>
+                        <strong>Tecnología de sonido:</strong> Dolby Atmos para una experiencia inmersiva. <br>
+                        <strong>Ambiente familiar:</strong> Perfecto para disfrutar en familia o con amigos.
                     </p>
-                    <a href="/cine_web_app/front-end/views/QuienesSomos.html">
-                        <button class="about-section__button">
-                            <div style="text-decoration: none; color:white;">Ver Más</div>
-                        </button>
-                    </a>
                 </div>
-            </div>
-        </section>
-
-        <section class="offers-section">
-            <h2 class="offers-section__title">Ofertas</h2>
-            <div class="offers-section__grid">
-                <!-- Tarjeta de oferta -->
-                <div class="offer-card">
-                    <div class="offer-card__content">
-                        <h3 class="offer-card__title">Entrada gratis en tu cumpleaños</h3>
-                        <p class="offer-card__description">
-                            Regístrate en nuestra página y recibe una entrada gratis en el mes de tu cumpleaños si traes
-                            a 3 amigos contigo.
-                        </p>
-                    </div>
-                    <img src="/cine_web_app/front-end/images/cumpleanos.png" alt="Palomitas de maíz" class="offer-card__image">
-                </div>
-
-                <!-- Repetir tarjeta de oferta para otras tres tarjetas -->
-                <div class="offer-card">
-                    <div class="offer-card__content">
-                        <h3 class="offer-card__title">Estreno Joker con amigos</h3>
-                        <p class="offer-card__description">
-                            Unete a nosotros en el estreno del Joker este 11 de noviembre y trae a un amigo para tener 50% descuento en el primer menu joker funko que compreis.
-                        </p>
-                    </div>
-                    <img src="/cine_web_app/front-end/images/ofertajoker.png" alt="Palomitas de maíz" class="offer-card__image">
-                </div>
-
-                <div class="offer-card">
-                    <div class="offer-card__content">
-                        <h3 class="offer-card__title">Llavero de Película</h3>
-                        <p class="offer-card__description">
-                            Al asistir al estreno de ciertas películas seleccionadas, ¡llévate un llavero exclusivo de la película completamente gratis! (Hasta agotar existencias).
-                        </p>
-                    </div>
-                    <img src="/cine_web_app/front-end/images/Oferta-Llavero.png" alt="Palomitas de maíz" class="offer-card__image">
-                </div>
-
-                <div class="offer-card">
-                    <div class="offer-card__content">
-                        <h3 class="offer-card__title">Póster de Estreno</h3>
-                        <p class="offer-card__description">
-                            Asiste el primer día del estreno y recibe un póster oficial de la película como recuerdo. Una forma de celebrar tu pasión por el cine.
-                        </p>
-                    </div>
-                    <img src="/cine_web_app/front-end/images/Oferta-Poster.png" alt="Palomitas de maíz" class="offer-card__image">
-                </div>
-                
-            </div>
-            <a href="/cine_web_app/front-end/views/Promociones.html">
-                <button class="about-section__button">
-                    <div style="text-decoration: none; color:white;">Ver Más</div>
-                </button>
             </a>
-        </section>
-
+            <a id="linkPuertoVenecia" class="cines__link" href="../Cines-Carteleras/cine-detail.html?cine=1">
+                <div class="cines__card" style="background-image: url('../images/puerto-venecia.jpg');">
+                    <div class="cines__card-title">PUERTO VENECIA</div>
+                    <p class="cines__card-description">
+                        <strong>Butacas reclinables de lujo:</strong> Para una experiencia de máximo confort. <br>
+                        <strong>Sistema de sonido envolvente:</strong> Para que sientas cada escena. <br>
+                        <strong>Ideal para ir en pareja:</strong> Un ambiente cómodo y moderno.
+                    </p>
+                </div>
+            </a>
+            <a id="linkTorreOutlet" class="cines__link">
+                <div class="cines__card" style="background-image: url('../images/torre-outlet.jpg');">
+                    <div class="cines__card-title">TORRE OUTLET</div>
+                    <p class="cines__card-description">
+                        <strong>Sala estándar:</strong> Para los amantes del cine tradicional. <br>
+                        <strong>Iluminación tenue:</strong> Crea un ambiente acogedor para una experiencia de calidad.
+                        <br>
+                        <strong>Accesibilidad:</strong> Diseño pensado para comodidad y accesibilidad.
+                    </p>
+                </div>
+            </a>
+            <a id="linkCascoAntiguo" class="cines__link">
+                <div class="cines__card" style="background-image: url('../images/casco-antiguo.jpg');">
+                    <div class="cines__card-title">CASCO ANTIGUO</div>
+                    <p class="cines__card-description">
+                        <strong>Salas VIP:</strong> Asientos exclusivos tipo lounge. <br>
+                        <strong>Servicio a butacas:</strong> Disfruta de comida y bebida sin moverte del asiento. <br>
+                        <strong>Ambiente sofisticado:</strong> Perfecto para una experiencia de cine más lujosa.
+                    </p>
+                </div>
+            </a>
+        </div>
     </main>
-
 
     <footer class="footer">
         <div class="footer__social">
@@ -205,7 +145,7 @@
             <ul class="footer__link-group">
                 <li><a href="/cine_web_app/front-end/views/QuienesSomos.html">Quiénes somos</a></li>
                 <li><a href="/cine_web_app/front-end/views/TrabajaConNosotros.html">Trabaja con nosotros</a></li>
-                <li><a href="/cine_web_app/front-end/views/security/cookies.html">Política de Cookies</a></li>
+                <li><a href="/cine_web_app/front-end/views/security/Galletas.html">Política de Cookies</a></li>
                 <li><a href="#">Política de privacidad</a></li>
                 <li><a href="#">Apoyo Institucional</a></li>
             </ul>
@@ -226,8 +166,33 @@
             </ul>
         </div>
     </footer>
-    <script src="/cine_web_app/front-end/js/home/CarruselController.js"></script>
-    <script src="/cine_web_app/front-end/js/home/navbarresponsive.js"></script>
+
+
 </body>
+<script src="/cine_web_app/front-end/js/home/Barra-De-Navegación-Adaptable.js"></script>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    const cines = [
+        { id: "linkGranCasa", name: "gran-casa", cineId: 2 },
+        { id: "linkPuertoVenecia", name: "puerto-venecia", cineId: 1 },
+        { id: "linkTorreOutlet", name: "torre-outlet", cineId: 3 },
+        { id: "linkCascoAntiguo", name: "casco-antiguo", cineId: 4 },
+    ];
+
+    // Recorre todos los cines definidos en el array
+    cines.forEach((cine) => {
+        const linkElement = document.getElementById(cine.id);
+        if (linkElement) {
+            // Actualiza el atributo href dinámicamente
+            linkElement.href = `../views/Cines-Carteleras/${cine.name}.html?cineId=${cine.cineId}`;
+        } else {
+            console.error(`El elemento con id ${cine.id} no existe en el DOM.`);
+        }
+    });
+});
+
+
+</script>
 
 </html>

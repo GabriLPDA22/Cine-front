@@ -21,7 +21,7 @@ function populateSummary() {
     if (timeElement) timeElement.innerHTML = `<strong>Hora:</strong> ${params.time || 'No disponible'}`;
     if (roomElement) roomElement.innerHTML = `<strong>Sala:</strong> ${params.room || 'No disponible'}`;
     if (seatsElement) seatsElement.innerHTML = `<strong>Entradas:</strong> ${params.seats || 'No disponible'}`;
-    if (totalElement) totalElement.innerHTML = `<strong>Precio Total:</strong> ${params.cartTotal || '0,00 €'}`;
+    if (totalElement) totalElement.innerHTML = `<strong>Precio Total:</strong> ${params.cartTotal || '0,00 €'} <a>€</a>`;
 
     // Datos personales
     const nameElement = document.querySelector('.purchase-summary__info-item--personal:nth-child(1)');

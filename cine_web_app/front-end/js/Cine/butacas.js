@@ -270,7 +270,7 @@ continueBtn.addEventListener('click', () => {
         const totalPrice = selectedSeats.reduce((total, seat) => total + seat.price, 0);
         params.set('totalPrice', totalPrice.toFixed(2));
 
-        window.location.href = `/cine_web_app/front-end/views/security/login-guest.html?${params.toString()}`;
+        window.location.href = `/cine_web_app/front-end/views/security/AccesoInvitado.html?${params.toString()}`;
     } else {
         alert('Selecciona al menos un asiento');
     }
