@@ -179,7 +179,7 @@ document.getElementById('finalize-purchase').addEventListener('click', function 
 
         // Redirigir a la página de resumen con todos los parámetros
         const newQueryString = currentParams.toString();
-        window.location.href = `Sumary.html?${newQueryString}`;
+        window.location.href = `Resumen.html?${newQueryString}`;
     }
 });
 

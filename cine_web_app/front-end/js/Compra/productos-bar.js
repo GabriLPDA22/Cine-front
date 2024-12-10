@@ -229,7 +229,7 @@ if (continueButton) {
         params.set('cartTotal', cartTotal.toFixed(2)); // También almacena el total del carrito
 
         // Redirigir a la página de compra con los nuevos parámetros
-        window.location.href = `/cine_web_app/front-end/views/Compra/guest-purchase.html?${params.toString()}`;
+        window.location.href = `/cine_web_app/front-end/views/Compra/CompraInvitado.html?${params.toString()}`;
     });
 }
 

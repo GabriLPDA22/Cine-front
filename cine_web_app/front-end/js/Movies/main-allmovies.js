@@ -63,7 +63,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (movieCard) {
             const movieId = movieCard.getAttribute('data-movie-id'); // Obtener el ID de la película
             if (movieId) {
-                window.location.href = `movies.html?id=${movieId}`; // Redirigir a movies.html con el ID
+                window.location.href = `Peliculas.html?id=${movieId}`; // Redirigir a Peliculas.html con el ID
             } else {
                 console.error("No se encontró el ID de la película en la tarjeta seleccionada.");
             }
@@ -158,7 +158,7 @@ async function loadMovies() {
 
             // Redirección al hacer clic
             img.addEventListener('click', () => {
-                window.location.href = `movies.html?id=${movie.id}`; // Redirección a movies.html con la ID de la película
+                window.location.href = `Peliculas.html?id=${movie.id}`; // Redirección a Peliculas.html con la ID de la película
             });
 
             // Título de la película

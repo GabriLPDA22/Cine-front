@@ -396,7 +396,7 @@ function redirectToSeatSelection(movieTitle, cineName, date, time, room, sesionI
         room,
         sesionId // Asegúrate de incluir el sesionId aquí
     });
-    window.location.href = `/cine_web_app/front-end/views/butacas.html?${queryParams.toString()}`;
+    window.location.href = `/cine_web_app/front-end/views/Butacas.html?${queryParams.toString()}`;
 }
 
 // Cargar detalles de la película si hay un `movieId`

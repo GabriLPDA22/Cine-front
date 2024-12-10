@@ -33,7 +33,7 @@ async function loadMovies() {
 
             // Redirección al hacer clic
             img.addEventListener('click', () => {
-                window.location.href = `movies.html?id=${movie.id}`;
+                window.location.href = `Peliculas.html?id=${movie.id}`;
             });
 
             // Título de la película

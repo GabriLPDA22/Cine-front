@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 if (response.ok) {
                     const nombreUsuario = data.nombre;
                     localStorage.setItem("usuario", nombreUsuario);
-                    window.location.replace("/cine_web_app/front-end/views/home.html");
+                    window.location.replace("/cine_web_app/front-end/views/Home.html");
                 } else {
                     const errorText = data.mensaje || "Error desconocido.";
                     alert(`Error en el inicio de sesión: ${errorText}`);
