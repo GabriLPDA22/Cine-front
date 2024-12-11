@@ -104,6 +104,25 @@
         </div>
     </main>
 
+    <button id="remove-occupied-btn">Eliminar butacas ocupadas</button>
+
+    <script>
+        
+        function eliminarButacasOcupadas() {
+            const reservedSeats = document.querySelectorAll('.reserved'); 
+            reservedSeats.forEach(seat => {
+                seat.remove(); 
+            });
+            console.log("Butacas ocupadas eliminadas.");
+        }
+    
+        document.addEventListener('DOMContentLoaded', () => {
+            inicializarButacas();
+            const removeOccupiedBtn = document.getElementById('remove-occupied-btn');
+            removeOccupiedBtn.addEventListener('click', eliminarButacasOcupadas);
+        });
+    </script>
+
     <script src="../js/Cine/butacas.js"></script>
     <script src="../js/Cine/SeatSelection.js"></script>
 </body>

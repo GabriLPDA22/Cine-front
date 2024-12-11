@@ -33,6 +33,8 @@ async function loadMovieDetails(id) {
         document.getElementById('movie-release-date').textContent = movie.fechaEstreno;
         document.getElementById('movie-genre').textContent = movie.genero;
         document.getElementById('movie-rating').textContent = movie.calificacion;
+        document.getElementById('movie-opinion').textContent = movie.opinion;
+        document.getElementById('movie-puntuacion').textContent = movie.puntuacion;
 
         const ageRatingIcon = document.getElementById('age-rating-icon');
         ageRatingIcon.src = movie.imagenEdadRecomendada;
